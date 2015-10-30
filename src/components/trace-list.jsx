@@ -1,6 +1,6 @@
 const React = require('react'),
       Store = require('../store'),
-      TraceItem = require('./trace-item');
+      Inspector = require('react-json-inspector');
 
 module.exports = React.createClass({
   componentDidMount: function () {
@@ -33,9 +33,19 @@ module.exports = React.createClass({
   render : function(){
     var noData = this.state.items.length === 0 ?
       <div>No traces yet...</div> : null; 
-    var items = this.state.items.map(function(item){
-      return <TraceItem data={item}/>;
+    var data = {};
+    this.state.items.map(function(item, i){
+      var json = JSON.parse(item.jsonString);
+      var name = i + " - " + json.msg;
+      if(json.collection) name += ' [' + json.collection+']';
+      if(json.name) name += ' [' + json.name+']';
+
+      if(json.method) name += ' [' + json.method+']';
+      if(json.id) name += ' - ' + json.id;
+      if(json.error && json.error.message) name += ' - ' + json.error.message;
+      data[name] = json;
     });
+    var items = <Inspector data={data} />;
     
     return (
       <ul className="network-traces">
