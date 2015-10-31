@@ -35,7 +35,7 @@
   "dependencies": {
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-json-tree": "^0.2.0",
+    "react-json-inspector": "^6.0.0",
     "underscore": "^1.8.3"
   }
 }
