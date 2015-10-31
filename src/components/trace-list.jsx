@@ -35,15 +35,16 @@ module.exports = React.createClass({
       <div>No traces yet...</div> : null; 
     var data = {};
     this.state.items.map(function(item, i){
+      var dir = item.isOutbound ? "↑" : "↓";
       var json = JSON.parse(item.jsonString);
-      var name = i + " - " + json.msg;
-      if(json.collection) name += ' [' + json.collection+']';
-      if(json.name) name += ' [' + json.name+']';
+      var key = i + " - " + dir + " " + json.msg;
+      if(json.collection) key += ' [' + json.collection+']';
+      if(json.name) key += ' [' + json.name+']';
 
-      if(json.method) name += ' [' + json.method+']';
-      if(json.id) name += ' - ' + json.id;
-      if(json.error && json.error.message) name += ' - ' + json.error.message;
-      data[name] = json;
+      if(json.method) key += ' [' + json.method+']';
+      if(json.id) key += ' - ' + json.id;
+      if(json.error && json.error.message) key += ' - ' + json.error.message;
+      data[key] = json;
     });
     var items = <Inspector data={data} />;
     
