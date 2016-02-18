@@ -3,7 +3,7 @@ import _ from 'underscore';
 const _labels = {
   added : (message) => {
     return _.isArray(message) ?
-      `${message.length} items added to ${message[0].collection} collection` : 
+      `${message.length} items added to ${message[0].collection} collection` :
       `item added to ${message.collection} collection`;
   },
 
@@ -23,7 +23,7 @@ const _labels = {
   pong : () => 'pong',
   connect : () => 'connect',
   updated : () => 'updated',
-  
+
   result : (message, traces) => {
     let method = _.find(traces, (t) => {
       return t.operation === 'method' &&
@@ -35,7 +35,11 @@ const _labels = {
 
   sub : (message) => {
     let params = (message.params || []).join(', ')
-    return `subscribing to ${message.name} with ${params}`;
+    if (params) {
+      return `subscribing to ${message.name} with ${params}`;
+    }
+    return `subscribing to ${message.name}`;
+
   },
 
   ready : (message, traces) => {
@@ -43,25 +47,62 @@ const _labels = {
       return t.operation === 'sub' &&
         _.contains(message.subs, t.message.id);
     });
-    let subName = sub && sub.message.name;
+    let subName = (sub && sub.message.name) || 'unknown subscription';
     return `subscription ready for ${subName}`;
   },
 
   method : (message) => {
     let params = (message.params || []).join(', ')
-    return `calling method ${message.method} with ${params}`;
-  }
+    if (params) {
+      return `calling method ${message.method} with ${params}`;
+    }
+    return `calling method ${message.method}`;
+  },
+
+  unsub : (message, traces) => {
+    let sub = _.find(traces, (t) => {
+      return t.operation === 'sub' &&
+        (message.id === t.message.id);
+    });
+    let subName = (sub && sub.message.name) || 'unknown subscription';
+
+    return `unsubscribing from ${subName}`;
+  },
+
+  nosub : (message, traces) => {
+    let sub = _.find(traces, (t) => {
+      return t.operation === 'sub' &&
+        (message.id === t.message.id);
+    });
+    let subName = (sub && sub.message.name);
+    let label = 'nosub';
+
+    let unsub = _.find(traces, (t) => {
+      return t.operation === 'unsub' &&
+        (message.id === t.message.id);
+    });
+
+    if (subName) {
+      label = `unsubscribed from ${subName}`;
+    }
+    if (! unsub) {
+      // no unsubscribe request, hence the subscription is unknown
+      label = `${label} (unrecognized subscription)`;
+    }
+    return label;
+  },
+
 };
 
 class TraceLabels {
   run(traces) {
     return _.map(traces, (t) => {
-      let messageType = _.isArray(t.message) ? 
+      let messageType = _.isArray(t.message) ?
         t.message[0].msg : t.message.msg;
-      let label = _labels[messageType] ? 
+      let label = _labels[messageType] ?
         _labels[messageType].call(this,t.message,traces) :
         messageType;
-      
+
       return _.extend(t, { label });
     });
   }
