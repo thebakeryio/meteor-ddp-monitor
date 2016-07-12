@@ -7,6 +7,7 @@ import {
   setCollectionSecurity,
   setSecurityTab
 } from './actions';
+import SplitPane from 'react-split-pane';
 import CollectionPanel from './components/collections-panel';
 import PackageAudit from './components/package-audit';
 import Analytics from '../../common/analytics';
@@ -88,14 +89,18 @@ class App extends Component {
 
     return (
       <div className="security">
-        <aside className="sidebar">
-          <ul>
-            {this._showTabs(Tabs, this.props.securityTabsIndex)}
-          </ul>
-        </aside>
-        <section className="main-panel">
-          {this._showSelectedComponent(Tabs, this.props.securityTabsIndex)}
-        </section>
+        <SplitPane defaultSize={250} maxSize={400} minSize={100} split="vertical">
+            <div className="sidebar">
+              <ul>
+                {this._showTabs(Tabs, this.props.securityTabsIndex)}
+              </ul>
+            </div>
+            <div>
+              <div className="main-panel">
+                {this._showSelectedComponent(Tabs, this.props.securityTabsIndex)}
+              </div>
+            </div>
+        </SplitPane>
        
       </div> 
     )

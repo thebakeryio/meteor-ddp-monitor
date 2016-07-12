@@ -25,6 +25,14 @@
     > section ul {
         margin: 4px 0;
     }
+
+    .collection-panel {
+        padding-bottom: 31px;
+    }
+
+    .Pane1, .Pane2 {
+        overflow-y: scroll;
+    }
 }
 
 .minimongo-header {
@@ -39,6 +47,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    overflow: hidden;
     
     li {
         padding: 5px 10px;

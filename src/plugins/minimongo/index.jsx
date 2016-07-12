@@ -14,6 +14,7 @@ import DataTree from './components/data-tree';
 import safeDocumentQuery from './lib/doc-matcher';
 import safeDocumentSorter from './lib/doc-sorter';
 import safeDocumentProjector from './lib/doc-projector';
+import SplitPane from 'react-split-pane';
 import './minimongo.scss';
 
 let dispatch = null;
@@ -70,7 +71,7 @@ class App extends Component {
         .sort(sorter.action);
 
       return (
-        <div>
+        <div className="collection-panel">
           <div className="minimongo-header">{currentSelection}</div>
           <CollectionInput
             collectionName={currentSelection}
@@ -95,17 +96,19 @@ class App extends Component {
 
     return (
       <div className="minimongo">
-        <aside>
-          <div className="minimongo-header">Collections</div>
-          <CollectionList 
-          changeCollectionSelection={changeSelection} 
-          collections={this.props.getCollections()}
-          currentSelection={this.props.minimongoCurrentSelection}
-          />
-        </aside>
-        <section>
-          { this._collectionPanel(this.props.minimongoCurrentSelection) }
-        </section> 
+        <SplitPane defaultSize={300} maxSize={400} minSize={100} split="vertical">
+          <div>
+            <div className="minimongo-header">Collections</div>
+            <CollectionList 
+            changeCollectionSelection={changeSelection} 
+            collections={this.props.getCollections()}
+            currentSelection={this.props.minimongoCurrentSelection}
+            />
+          </div>
+          <div>
+            { this._collectionPanel(this.props.minimongoCurrentSelection) }
+          </div>
+        </SplitPane>
       </div>
     )
   }
