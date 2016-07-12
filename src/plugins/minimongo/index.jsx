@@ -14,7 +14,7 @@ import DataTree from './components/data-tree';
 import safeDocumentQuery from './lib/doc-matcher';
 import safeDocumentSorter from './lib/doc-sorter';
 import safeDocumentProjector from './lib/doc-projector';
-import './minimongo.css';
+import './minimongo.scss';
 
 let dispatch = null;
 

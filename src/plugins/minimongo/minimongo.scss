@@ -1,0 +1,75 @@
+.no-minimongo {
+  margin: 0.5em;
+}
+
+.minimongo {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+
+    & > aside, & > section {
+        overflow-y: scroll;
+        padding-bottom: 40px;
+    }
+
+    & > aside {
+        flex: 1;
+        max-width: 25%;
+        border-right: solid 1px #ccc;
+    }
+
+    & > section {
+        flex: 3;
+    }
+
+    & > section ul {
+        margin: 4px 0;
+    }
+}
+
+.minimongo-header {
+    text-align: center;
+    background-color: #f3f3f3;
+    padding: 5px 0;
+    font-weight: bold;
+    border-bottom: solid 1px #ccc;
+}
+
+.minimongo-collections {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+        padding: 5px 10px;
+
+        &:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+        
+        &:hover {
+            cursor: pointer;
+        }
+        
+        &.selected {
+            color: white;
+            background-color: rgb(56, 121, 217)
+        }
+    }
+}
+
+.minimongo-input {
+    width: 100%;
+    padding: 5px 2px;
+    outline: none;
+    font-size: 12px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    
+    &.error {
+        background-color: #f2dede;
+        border-color: #ebccd1;
+        color: #a94442;
+    }
+}

@@ -18,6 +18,10 @@ module.exports = function(overrides){
         {
           test: /\.css$/,
           loader: 'style-loader!css-loader!postcss-loader'
+        },
+        {
+          test: /\.scss$/,
+          loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
         }
       ]
     },
