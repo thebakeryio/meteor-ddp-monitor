@@ -39,7 +39,13 @@ class CollectionAudit extends Component {
 
     return (
       <li className={collectionClass}>
-        {this.props.name} <button onClick={this._auditCollection}>audit</button>
+          <div className="status"></div>
+          <div className="desc">
+            {this.props.name}
+            <div> 
+              <button onClick={this._auditCollection}>audit</button>
+            </div>
+          </div>
       </li>
     )
   }

@@ -75,14 +75,16 @@ class App extends Component {
   render() {
     const { dispatch } = this.props;
 
-    const Tabs = [{
-        name: 'Packages',
-        component: <PackageAudit packages={this.props.packageList} />
-      },
+    const Tabs = [
       {
         name: 'Collections',
         component: <CollectionPanel collectionData={this.props.collectionData} />
-    }];
+      },
+      {
+        name: 'Packages',
+        component: <PackageAudit packages={this.props.packageList} />
+      }
+    ];
 
     return (
       <div className="security">

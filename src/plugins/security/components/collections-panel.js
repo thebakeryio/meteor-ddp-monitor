@@ -18,13 +18,12 @@ export default React.createClass({
       });
 
     return (
-
-         <section>
-          <h3>Collections:</h3>
-          <ul>
-            {collections}
-          </ul>
-        </section>
+      <div>
+        <h3>Collections:</h3>
+        <ul className="collection-status">
+          {collections}
+        </ul>
+      </div>
     )
   }
 });
