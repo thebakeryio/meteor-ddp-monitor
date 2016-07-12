@@ -1,0 +1,141 @@
+.security {
+  display: flex;
+  flex-direction: row;
+  min-height: 100%;
+  padding-bottom: 31px;
+  
+  .sidebar {
+    flex: 1;
+    background-color: #f3f3f3;
+  
+    > ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;  
+    }
+
+    li {
+      border-bottom: 1px solid rgb(230, 230, 230);
+      padding: 16px 0 16px 16px;
+    
+      &.selected {
+        background-color: #ddd;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .main-panel {
+    flex: 4;
+    background-color: #f9f9f9;
+    border-left: 1px solid rgb(64%, 64%, 64%);
+    min-height: 100%;
+    
+    h3 {
+      font-size: 14px;
+      margin: 0;
+      padding: 12px 24px;
+      background-color: #fff;
+    }
+  }  
+
+  .package-status, .collection-status {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    > li {
+      padding: 12px;
+      border-bottom: 1px solid rgb(230, 230, 230);
+      background-color: #fff;
+      display: flex;
+
+      &:first-child {
+        border-top: 1px solid rgb(230, 230, 230);  
+      }
+    }
+
+    .status {
+      width: 8px;
+      height: 8px;
+      margin-top: 5px;
+      margin-left: 10px;
+      margin-right: 18px;
+      border-radius: 18px;
+      flex: none;
+      background-color: #ccc;
+    }
+
+    .desc {
+      flex: auto;
+      margin: 0;
+    }
+
+    button {
+      background-image: linear-gradient(hsl(0, 0%, 93%), hsl(0, 0%, 93%) 38%, hsl(0, 0%, 87%));
+      border: 1px solid hsla(0, 0%, 0%, 0.25);
+      border-radius: 2px;
+      box-shadow: 0 1px 0 hsla(0, 0%, 0%, 0.08), inset 0 1px 2px hsla(0, 100%, 100%, 0.75);
+      color: hsl(0, 0%, 27%);
+      margin: 8px 1px 0 0;
+      text-shadow: 0 1px 0 hsl(0, 0%, 94%);
+      min-height: 2em !important;
+      padding: 0 10px;
+      -webkit-user-select: none;
+      flex: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .secure, .insecure {
+    .operation {
+      display: block;
+    }
+  }
+
+  .is-secure {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all ease-in 300ms;
+    margin: 0;
+  }
+
+  .secure, .insecure {
+    .is-secure {
+      max-height: 1000px;
+      opacity: 1;
+      margin-top: 4px;
+    }
+  }
+}
+
+.valid, .secure {
+  color: rgb(42, 194, 57);
+
+  .is-secure {
+    color: rgb(42, 194, 57);
+  }
+
+  .status {
+    background-color: rgb(42, 194, 57) !important;
+  }
+}
+
+.warning, .insecure {
+  color: red;
+  
+  .is-secure {
+    color: red;
+  }
+
+  .status {
+    background-color: red !important;
+  }
+}

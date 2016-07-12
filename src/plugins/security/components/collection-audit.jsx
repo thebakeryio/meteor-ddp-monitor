@@ -33,17 +33,18 @@ class CollectionAudit extends Component {
   render () {
 
     let collectionClass = classNames({
-      'valid' : this.props.isSecure === 'secure',
-      'warning' : this.props.isSecure === 'insecure'
+      'secure' : this.props.isSecure === 'secure',
+      'insecure' : this.props.isSecure === 'insecure'
     });
 
     return (
-      <li className={collectionClass}>
+      <li className={this.props.isSecure}>
           <div className="status"></div>
           <div className="desc">
-            {this.props.name}
+            <strong>{this.props.name}</strong>
+            <p className="is-secure">Insert: {this.props.isSecure}</p>
             <div> 
-              <button onClick={this._auditCollection}>audit</button>
+              <button onClick={this._auditCollection}>Audit collection</button>
             </div>
           </div>
       </li>

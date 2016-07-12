@@ -11,13 +11,13 @@ export default React.createClass({
       return (
         <li className="warning">
           <div className="status"></div>
-          <p>You should consider removing the <strong>{packageName}</strong> package.</p>
+          <p className="desc">You should consider removing the <strong>{packageName}</strong> package.</p>
         </li>);
     } else {
       return (
         <li className="valid">
           <div className="status"></div>
-          <p><strong>{packageName}</strong> package was removed.</p>
+          <p className="desc"><strong>{packageName}</strong> package was removed.</p>
         </li>);
     }
   },
@@ -27,13 +27,13 @@ export default React.createClass({
       return (
         <li className="warning">
           <div className="status"></div>
-          <p>You should consider including the <strong>{packageName}</strong> package.</p>
+          <p className="desc">You should consider including the <strong>{packageName}</strong> package.</p>
         </li>);
     } else {
       return (
         <li className="valid">
           <div className="status"></div>
-          <p><strong>{packageName}</strong> package is included.</p>
+          <p className="desc"><strong>{packageName}</strong> package is included.</p>
         </li>
       );
     }

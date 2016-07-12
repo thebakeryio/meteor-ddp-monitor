@@ -10,7 +10,7 @@ import {
 import CollectionPanel from './components/collections-panel';
 import PackageAudit from './components/package-audit';
 import Analytics from '../../common/analytics';
-import './security.css';
+import './security.scss';
 
 
 let dispatch = null;
@@ -93,7 +93,7 @@ class App extends Component {
             {this._showTabs(Tabs, this.props.securityTabsIndex)}
           </ul>
         </aside>
-        <section>
+        <section className="main-panel">
           {this._showSelectedComponent(Tabs, this.props.securityTabsIndex)}
         </section>
        

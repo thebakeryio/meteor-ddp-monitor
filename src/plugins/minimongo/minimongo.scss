@@ -7,22 +7,22 @@
     flex-direction: row;
     height: 100%;
 
-    & > aside, & > section {
+    > aside, > section {
         overflow-y: scroll;
         padding-bottom: 40px;
     }
 
-    & > aside {
+    > aside {
         flex: 1;
         max-width: 25%;
         border-right: solid 1px #ccc;
     }
 
-    & > section {
+    > section {
         flex: 3;
     }
 
-    & > section ul {
+    > section ul {
         margin: 4px 0;
     }
 }
