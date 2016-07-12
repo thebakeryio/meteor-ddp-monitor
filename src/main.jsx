@@ -53,7 +53,11 @@ class App extends Component {
     };
     return (
       <div className="tab-wrapper">
-        <Tabs className="app-tabs" onSelect={_handleSelect} selectedIndex={this.props.tabIndex}>
+        <Tabs className="app-tabs" 
+          forceRenderTabPanel
+          onSelect={_handleSelect} 
+          selectedIndex={this.props.tabIndex}
+        >
           <TabList>
             {tabs}
             <li className="gh-link">

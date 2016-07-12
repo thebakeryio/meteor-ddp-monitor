@@ -1,0 +1,65 @@
+.security {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.security > aside {
+  flex: 1;
+}
+
+.security .sidebar {
+  background-color: #f3f3f3;
+  border-right: 1px solid rgb(64%, 64%, 64%);
+}
+
+.security .sidebar > ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;  
+}
+
+.security .sidebar li {
+  border-bottom: 1px solid rgb(230, 230, 230);
+  padding: 16px 0 16px 16px;
+}
+
+.security .sidebar li.selected {
+  background-color: #ddd;
+}
+
+.security > section {
+  flex: 4;
+  background-color: #f9f9f9;
+} 
+
+.security > section h3 {
+  font-size: 14px;
+  margin: 0;
+  padding: 12px 24px;
+  background-color: #fff;
+}
+
+.security .package-status {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.security .package-status > li {
+  padding: 12px;
+  border-bottom: 1px solid rgb(230, 230, 230);
+  background-color: #fff;
+}
+
+.security .package-status > li:first-child {
+  border-top: 1px solid rgb(230, 230, 230);  
+}
+
+.green, .valid {
+  color: green;
+}
+
+.warning {
+  color: red;
+}
