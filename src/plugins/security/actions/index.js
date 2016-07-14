@@ -1,6 +1,7 @@
 import { 
   SET_PACKAGE_LIST, 
   SET_COLLECTION_SECURITY,
+  CLEAR_COLLECTION_SECURITY,
   SET_SECURITY_TAB
 } from '../constants';
 
@@ -16,6 +17,12 @@ export function setCollectionSecurity(method, isSecure) {
     type: SET_COLLECTION_SECURITY,
     method: method,
     isSecure: isSecure 
+  }
+}
+
+export function clearCollectionSecurity() {
+  return {
+    type: CLEAR_COLLECTION_SECURITY
   }
 }
 

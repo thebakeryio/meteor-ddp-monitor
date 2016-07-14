@@ -5,7 +5,8 @@ import _ from 'underscore';
 import {
   setPackageList,
   setCollectionSecurity,
-  setSecurityTab
+  setSecurityTab,
+  clearCollectionSecurity
 } from './actions';
 import SplitPane from 'react-split-pane';
 import CollectionPanel from './components/collections-panel';
@@ -22,12 +23,20 @@ const onNewMessage = (error, message) => {
   }
 };
 
+const onPageReload = () => {
+  dispatch(clearCollectionSecurity());
+  Bridge.sendMessageToThePage({
+    source: 'security-auditor',
+    event: 'get-package-list'
+  });
+};
+
 class App extends Component {
   componentDidMount() {
     dispatch = this.props.dispatch;
-    
     if(chrome && chrome.devtools) {
       Bridge.registerMessageCallback(onNewMessage);
+      Bridge.registerPageReloadCallback(onPageReload);
       Bridge.sendMessageToThePage({
         source: 'security-auditor',
         event: 'get-package-list'
@@ -43,7 +52,7 @@ class App extends Component {
         ]
       });
     }
-    // Analytics.trackPageView('security audit');
+    Analytics.trackPageView('security audit');
   }
 
   componentWillUnmount() {
@@ -74,7 +83,6 @@ class App extends Component {
 
   render() {
     const { dispatch } = this.props;
-
     const Tabs = [
       {
         name: 'Collections',
@@ -113,7 +121,6 @@ App.propTypes = {
   traces: PropTypes.array,
   securityTabsIndex: PropTypes.number,
 }
-
 
 export default connect((state) => {
   return {

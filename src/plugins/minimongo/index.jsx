@@ -32,6 +32,7 @@ class App extends Component {
 
     if(chrome && chrome.devtools) {
       Bridge.registerMessageCallback(onNewMessage);
+      Bridge.registerPageReloadCallback(onNewMessage);
       Bridge.sendMessageToThePage({
         source: 'minimongo-explorer',
         event: 'get-minimongo-collections'

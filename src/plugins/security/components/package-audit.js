@@ -7,7 +7,7 @@ export default React.createClass({
   },
 
   _checkPackageIsRemoved (packageName) {
-    if(this.props.packages.get(packageName)){
+    if(this.props.packages.includes(packageName)){
       return (
         <li className="warning">
           <div className="status warning"></div>
@@ -23,7 +23,7 @@ export default React.createClass({
   },
 
   _checkPackageIsIncluded (packageName) {
-    if(!this.props.packages.get(packageName)){
+    if(!this.props.packages.includes(packageName)){
       return (
         <li className="warning">
           <div className="status warning"></div>
