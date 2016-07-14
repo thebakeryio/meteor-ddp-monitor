@@ -18,7 +18,7 @@ export default {
   collectionSecurity (state = Immutable.fromJS({}), action) {
     switch(action.type){
       case SET_COLLECTION_SECURITY:
-        return state.set(action.collection, action.isSecure);
+        return state.set(action.method, action.isSecure);
       default:
         return state;
     }

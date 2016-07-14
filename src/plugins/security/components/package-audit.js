@@ -10,13 +10,13 @@ export default React.createClass({
     if(this.props.packages.get(packageName)){
       return (
         <li className="warning">
-          <div className="status"></div>
+          <div className="status warning"></div>
           <p className="desc">You should consider removing the <strong>{packageName}</strong> package.</p>
         </li>);
     } else {
       return (
         <li className="valid">
-          <div className="status"></div>
+          <div className="status valid"></div>
           <p className="desc"><strong>{packageName}</strong> package was removed.</p>
         </li>);
     }
@@ -26,13 +26,13 @@ export default React.createClass({
     if(!this.props.packages.get(packageName)){
       return (
         <li className="warning">
-          <div className="status"></div>
-          <p className="desc">You should consider including the <strong>{packageName}</strong> package.</p>
+          <div className="status warning"></div>
+          <p className="desc">Consider using the <strong>{packageName}</strong> package.</p>
         </li>);
     } else {
       return (
         <li className="valid">
-          <div className="status"></div>
+          <div className="status valid"></div>
           <p className="desc"><strong>{packageName}</strong> package is included.</p>
         </li>
       );
@@ -42,11 +42,15 @@ export default React.createClass({
   render () {
     return (
       <div>
-        <h3>Packages:</h3>
+        <div className="panel-header">
+          <h3>Packages:</h3>
+          <p>Some package recommendations based on: <a href="https://guide.meteor.com/security.html#method-rules." target="_blank">https://guide.meteor.com/security.html#method-rules.</a></p>
+        </div>
         <ul className="package-status">
-          {this._checkPackageIsRemoved('insecure')}
-          {this._checkPackageIsRemoved('autopublish')}
-          {this._checkPackageIsIncluded('audit-argument-checks')}
+            {this._checkPackageIsRemoved('insecure')}
+            {this._checkPackageIsRemoved('autopublish')}
+            {this._checkPackageIsIncluded('audit-argument-checks')}
+            {this._checkPackageIsIncluded('aldeed:simple-schema')}
         </ul>
       </div>
     )

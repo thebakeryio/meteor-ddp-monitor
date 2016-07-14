@@ -51,7 +51,6 @@ class App extends Component {
   }
 
   _handleClick(index) {
-    console.log(index);
     dispatch(setSecurityTab(index));
   }
 

@@ -4,7 +4,9 @@ const __getPackageList = (callback) => {
 };
 
 const __testCollectionSecurity = (ddpMessage) => {
-  Meteor.connection._stream.send(ddpMessage);
+  // add empty methodInvoker to avoid error message
+  Meteor.connection._methodInvokers[ddpMessage.id] = { dataVisible : () => {} };
+  Meteor.connection._stream.send(JSON.stringify(ddpMessage));
 };
 
 let __talkToExtension = null;

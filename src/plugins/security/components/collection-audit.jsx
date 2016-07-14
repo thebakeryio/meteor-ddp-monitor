@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import {
   buildDDPMessage,
-  testCollectionSecurity
+  testCollectionSecurity,
 } from '../lib';
 import {
   setCollectionSecurity
@@ -15,46 +15,77 @@ class CollectionAudit extends Component {
   constructor(){
     super();
     this._auditCollection = this._auditCollection.bind(this);
+    this.state = {
+      'testing': false
+    };
   }
 
   _auditCollection() {
-    Bridge.sendMessageToThePage({
-      source: 'security-auditor',
-      event: 'test-collection-security',
-      ddpMessage: buildDDPMessage(this.props.name, 'insert')
-    });
+    const operations = ['insert', 'update', 'remove'];
     
-    setTimeout(() => {
-      const isSecure = testCollectionSecurity(this.props.name, 'insert', this.props.traces);
-      this.props.setCollectionSecurity(this.props.name, isSecure);
-    }, 1000);
+    operations.forEach((operation) => {
+
+      // send a DDP probe
+      Bridge.sendMessageToThePage({
+        source: 'security-auditor',
+        event: 'test-collection-security',
+        ddpMessage: buildDDPMessage(this.props.name, operation),
+      });
+      this.setState({'testing': true});
+      
+      // check for DDP response
+      setTimeout(() => {
+        let res = testCollectionSecurity(this.props.name, operation, this.props.traces);
+        this.props.setCollectionSecurity(`/${this.props.name}/${operation}`, res || 'timeout');
+        this.setState({'testing': false});
+      }, 500);
+    });
   }
 
   render () {
-
-    let collectionClass = classNames({
-      'secure' : this.props.isSecure === 'secure',
-      'insecure' : this.props.isSecure === 'insecure'
+    const insertStatus = this.props.insertIsSecure;
+    const updateStatus = this.props.updateIsSecure;
+    const removeStatus = this.props.removeIsSecure;
+    const statusClass = classNames('status', {
+      'secure' :  insertStatus === 'secure' &&
+                  updateStatus === 'secure' && 
+                  removeStatus === 'secure',
+      'insecure' : insertStatus && updateStatus && removeStatus && 
+        (insertStatus === 'insecure' ||
+         updateStatus === 'insecure' || 
+         removeStatus === 'insecure'),
+      'timeout' : insertStatus === 'timeout' &&
+                  updateStatus === 'timeout' && 
+                  removeStatus === 'timeout',
     });
+    const showResults = classNames('operation-results', {
+      show: insertStatus
+    });
+    const buttonLabel = this.state.testing ? 'Testing...' : 'Audit collection';
 
     return (
-      <li className={this.props.isSecure}>
-          <div className="status"></div>
+      <li>
+          <div className={statusClass}></div>
           <div className="desc">
             <strong>{this.props.name}</strong>
-            <p className="is-secure">Insert: {this.props.isSecure}</p>
+            <ul className={showResults}>
+              <li className={insertStatus}>Insert: {insertStatus}</li>
+              <li className={updateStatus}>Update: {updateStatus}</li> 
+              <li className={removeStatus}>Remove: {removeStatus}</li>
+            </ul>
             <div> 
-              <button onClick={this._auditCollection}>Audit collection</button>
+              <button onClick={this._auditCollection}>{buttonLabel}</button>
             </div>
           </div>
       </li>
     )
   }
-
 };
 
 CollectionAudit.propTypes = {
-  isSecure: PropTypes.bool,
+  insertIsSecure: PropTypes.string,
+  updateIsSecure: PropTypes.string,
+  removeIsSecure: PropTypes.string,
   name : PropTypes.string.isRequired,
   traces : PropTypes.array.isRequired,
   setCollectionSecurity : PropTypes.func.isRequired
@@ -63,15 +94,16 @@ CollectionAudit.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     traces: state.traces,
-    isSecure: state.collectionSecurity.get(ownProps.name)
+    insertIsSecure: state.collectionSecurity.get(`/${ownProps.name}/insert`),
+    updateIsSecure: state.collectionSecurity.get(`/${ownProps.name}/update`),
+    removeIsSecure: state.collectionSecurity.get(`/${ownProps.name}/remove`)
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setCollectionSecurity: (collection, isSecure) => {
-      console.log('dispatching collection security');
-      dispatch(setCollectionSecurity(collection, isSecure));
+    setCollectionSecurity: (method, isSecure) => {
+      dispatch(setCollectionSecurity(method, isSecure));
     }
   };
 }

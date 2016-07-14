@@ -11,10 +11,10 @@ export function setPackageList(data) {
   }
 }
 
-export function setCollectionSecurity(collection, isSecure) {
+export function setCollectionSecurity(method, isSecure) {
   return {
     type: SET_COLLECTION_SECURITY,
-    collection: collection,
+    method: method,
     isSecure: isSecure 
   }
 }

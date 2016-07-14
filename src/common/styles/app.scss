@@ -62,6 +62,44 @@ html, body {
   }
 }
 
-input[type="radio" i], input[type="checkbox" i] {
+input[type="radio"], input[type="checkbox"] {
   margin: 3px 0.5ex;
+}
+
+.Resizer {
+  background: #000;
+  opacity: .2;
+  z-index: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+    
+  &:hover {
+      -webkit-transition: all 2s ease;
+      transition: all 2s ease;
+  }
+  
+  &.vertical {
+      width: 11px;
+      margin: 0 -5px;
+      border-left: 5px solid rgba(255, 255, 255, 0);
+      border-right: 5px solid rgba(255, 255, 255, 0);
+      cursor: col-resize;
+  }
+  
+  &.vertical:hover {
+      border-left: 5px solid rgba(0, 0, 0, 0.5);
+      border-right: 5px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  &.disabled {
+    cursor: not-allowed;
+  }
+  
+  &.disabled:hover {
+    border-color: transparent;
+  }
 }

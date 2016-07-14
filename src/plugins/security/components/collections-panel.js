@@ -9,17 +9,21 @@ export default React.createClass({
 
   render () {
 
-      let collections = this.props.collectionData().keySeq().map((c) => {
+    let collections = this.props.collectionData().keySeq().map((c) => {
       return (
       <CollectionAudit
-            key={c} 
-            name={c} 
-          />);
-      });
+        key={c} 
+        name={c} 
+      />);
+    });
 
     return (
       <div>
-        <h3>Collections:</h3>
+        <div className="panel-header">
+          <h3>Collections:</h3>
+          <p>Avoid using Allow or Deny rules to run Insert/Update/Remove queries from the client.</p>
+          <p>See recommendations: <a href="https://guide.meteor.com/security.html#allow-deny" target="_blank">https://guide.meteor.com/security.html#allow-deny</a></p>
+        </div>
         <ul className="collection-status">
           {collections}
         </ul>
