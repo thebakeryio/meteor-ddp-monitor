@@ -44,8 +44,6 @@ class App extends Component {
         data: fakeCollections
       });
     }
-
-    Analytics.trackPageView('minimongo explorer');
   }
 
   componentWillUnmount() {

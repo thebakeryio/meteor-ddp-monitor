@@ -10,7 +10,6 @@ import {
 import BlazeTreeView from './components/tree'
 import PropertiesView from './components/props'
 import _ from 'underscore';
-import Analytics from '../../common/analytics';
 import './blaze.css';
 
 let dispatch = null;
@@ -48,8 +47,6 @@ class App extends Component {
         data: JSON.stringify(fakeBlazeTree)
       });
     }
-
-    Analytics.trackPageView('blaze inspector');
   }
 
   componentWillUnmount() {

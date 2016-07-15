@@ -13,7 +13,6 @@ import { addTrace, clearLogs } from './actions/traces'
 import { toggleFilter } from './actions/filters'
 import _ from 'underscore';
 import DDPMessageGenerator from './lib/ddp-generator';
-import Analytics from '../../common/analytics';
 import './ddp.css';
 
 let autoscrollToTheBottom = true;
@@ -75,8 +74,6 @@ class App extends Component {
         }
       },1000);
     }
-
-    Analytics.trackPageView('meteor ddp monitor');
   }
 
   componentWillUnmount() {

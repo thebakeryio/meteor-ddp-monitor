@@ -26,6 +26,7 @@ class App extends Component {
     window.onerror = (message) => {
       this.showGlobalError(message);
     };
+    Analytics.trackPageView('loaded devtools');
   }
 
   render() {
