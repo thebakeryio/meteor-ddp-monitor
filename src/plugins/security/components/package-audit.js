@@ -49,8 +49,9 @@ export default React.createClass({
         <ul className="package-status">
             {this._checkPackageIsRemoved('insecure')}
             {this._checkPackageIsRemoved('autopublish')}
-            {this._checkPackageIsIncluded('audit-argument-checks')}
             {this._checkPackageIsIncluded('aldeed:simple-schema')}
+            {this._checkPackageIsIncluded('audit-argument-checks')}
+            {this._checkPackageIsIncluded('mdg:validated-methods')}
         </ul>
       </div>
     )

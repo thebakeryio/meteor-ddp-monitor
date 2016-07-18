@@ -8,8 +8,8 @@ import {
 import {
   setCollectionSecurity
 } from '../actions';
-import Analytics from '../../common/analytics'
-import Bridge from '../../../common/bridge'
+import Analytics from '../../../common/analytics';
+import Bridge from '../../../common/bridge';
 
 class CollectionAudit extends Component {
 
