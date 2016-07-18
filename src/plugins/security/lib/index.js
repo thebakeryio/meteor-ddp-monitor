@@ -25,6 +25,16 @@ module.exports = {
     return ddpMessage;
   },
 
+  buildDDPMethodTester(method, params){
+    const ddpMessage = {
+      msg: 'method',
+      method: method,
+      params: params,
+      id: '/audit/method'
+    };
+    return ddpMessage;
+  },
+
   testCollectionSecurity(collection, operation, traces){
     const ddpResponse = _.first(_.filter(traces, function(obj) {
       return obj && obj.message && (obj.message.id === `/audit/${collection}/${operation}`)

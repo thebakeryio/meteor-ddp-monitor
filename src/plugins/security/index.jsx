@@ -11,6 +11,7 @@ import {
 import SplitPane from 'react-split-pane';
 import CollectionPanel from './components/collections-panel';
 import PackageAudit from './components/package-audit';
+import MethodsPanel from './components/methods-panel';
 import Analytics from '../../common/analytics';
 import './security.scss';
 
@@ -85,14 +86,19 @@ class App extends Component {
     const { dispatch } = this.props;
     const Tabs = [
       {
+        name: 'Packages',
+        component: <PackageAudit packages={this.props.packageList} />
+      },
+      {
         name: 'Collections',
         component: <CollectionPanel collectionData={this.props.collectionData} />
       },
       {
-        name: 'Packages',
-        component: <PackageAudit packages={this.props.packageList} />
-      }
+        name: 'Methods',
+        component: <MethodsPanel methodsSecurity={this.props.methodsSecurity} />
+      },
     ];
+
 
     return (
       <div className="security">
@@ -120,6 +126,7 @@ App.propTypes = {
   packageList : PropTypes.object,
   traces: PropTypes.array,
   securityTabsIndex: PropTypes.number,
+  methodsSecurity: PropTypes.object
 }
 
 export default connect((state) => {
@@ -135,6 +142,7 @@ export default connect((state) => {
     },
     collectionSecurity: state.collectionSecurity,
     traces: state.traces,
-    securityTabsIndex: state.securityTabsIndex
+    securityTabsIndex: state.securityTabsIndex,
+    methodsSecurity: state.methodsSecurity
   }
 })(App)

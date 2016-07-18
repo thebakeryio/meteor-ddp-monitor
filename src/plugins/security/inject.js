@@ -9,6 +9,10 @@ const __testCollectionSecurity = (ddpMessage) => {
   Meteor.connection._stream.send(JSON.stringify(ddpMessage));
 };
 
+const __testMethodParams = (ddpMessage) => {
+  Meteor.connection._stream.send(JSON.stringify(ddpMessage));
+};
+
 let __talkToExtension = null;
 
 module.exports = {
@@ -25,6 +29,9 @@ module.exports = {
     }
     if(message.event === 'test-collection-security') {
       __talkToExtension && __testCollectionSecurity(message.ddpMessage);
+    }
+    if(message.event === 'test-method-params') {
+      __talkToExtension && __testMethodParams(message.ddpMessage);
     }
   }
 };

@@ -44,7 +44,7 @@ export default React.createClass({
       <div>
         <div className="panel-header">
           <h3>Packages:</h3>
-          <p>Some package recommendations based on: <a href="https://guide.meteor.com/security.html#method-rules." target="_blank">https://guide.meteor.com/security.html#method-rules.</a></p>
+          <p>Some package recommendations based on: <a href="https://guide.meteor.com/security.html#checklist" target="_blank">https://guide.meteor.com/security.html#method-rules.</a></p>
         </div>
         <ul className="package-status">
             {this._checkPackageIsRemoved('insecure')}
