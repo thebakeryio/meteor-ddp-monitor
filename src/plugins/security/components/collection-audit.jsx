@@ -35,11 +35,12 @@ class CollectionAudit extends Component {
       this.setState({'testing': true});
       
       // check for DDP response
+      // TODO: check with exponential backoff
       setTimeout(() => {
         let res = testCollectionSecurity(this.props.name, operation, this.props.traces);
         this.props.setCollectionSecurity(`/${this.props.name}/${operation}`, res || 'timeout');
         this.setState({'testing': false});
-      }, 500);
+      }, 800);
     });
   
     Analytics.trackEvent('security', 'collection:audit');
