@@ -25,11 +25,6 @@ const onNewMessage = (error, message) => {
   }
 };
 
-const getItemsForCollection = (collectionData, collection) => {
-  const data = collectionData.toJS();
-  return data.get(collection) || [];
-};
-
 class App extends Component {
 
   componentDidMount() {
@@ -70,9 +65,7 @@ class App extends Component {
       const sorter = safeDocumentSorter(query);
       const error = matcher.error || projector.error || sorter.error;
       
-      const queryResult = getItemsForCollection(
-        this.props.minimongoCollections,
-        this.props.minimongoCurrentSelection)
+      const queryResult = this.props.minimongoCollections.get(this.props.minimongoCurrentSelection)
         .filter(matcher.action)
         .map(projector.action)
         .sort(sorter.action);
@@ -95,7 +88,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('rerender minimongo');
     const data = this.props.minimongoCollections;
     const noData = Immutable.is(data, Immutable.fromJS({}));
     const changeSelection = (collectionName) => {

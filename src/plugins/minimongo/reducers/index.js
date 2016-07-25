@@ -7,10 +7,10 @@ import {
 import Immutable from 'immutable'
 
 export default {
-  minimongoCollectionData (state = Immutable.fromJS({}), action) {
+  minimongoCollectionData (state = Immutable.Map(), action) {
     switch(action.type){
       case SET_MINIMONGO_COLLECTION_DATA:
-        return Immutable.fromJS(action.data);
+        return Immutable.Map(action.data);
       default:
         return state;
     }

@@ -18,12 +18,12 @@ export default React.createClass({
     
 
     const items = this.props.collections.entrySeq()
-      .sortBy(([k, v]) => k).map( ([key, value]) => {
+      .sortBy(([k, v]) => k).map( ([k, v]) => {
         return (
           <CollectionItem 
             changeCollectionSelection={this.props.changeCollectionSelection}
-            isSelected={this.isSelected(key)}
-            key={key} name={key} size={value.size} 
+            isSelected={this.isSelected(k)}
+            key={k} name={k} size={v.length} 
           />
         )
     });
