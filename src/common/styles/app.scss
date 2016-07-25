@@ -54,11 +54,29 @@ html, body {
 }
 
 .gh-link {
+  @media (min-width: 380px) {
+    display: block;
+  }
+
+  display: none;
   list-style: none;
   float: right;
   padding: 6px 6px 0 0;
+  
   a {
-    text-decoration: none;  
+    text-decoration: none;
+    
+    &:visited {
+      color:rgb(0, 0, 238);
+    }
+  }
+
+  .icon-baker-logo {
+    float: left;
+    height: 13px;
+    width: 9px;
+    margin-right: 6px;
+    text-decoration: none;
   }
 }
 

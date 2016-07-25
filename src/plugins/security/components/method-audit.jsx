@@ -40,8 +40,7 @@ class MethodAudit extends Component {
   }
 
   render () {
-    console.log('render method audit');
-    const buttonLabel = this.state.testing ? 'Testing...' : 'Audit collection';
+    const buttonLabel = this.state.testing ? 'Testing...' : 'Audit method';
     const paramsType = this.props.params.map((m) => {
       return <span>{m} / </span>
     });
