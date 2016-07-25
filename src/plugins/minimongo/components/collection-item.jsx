@@ -4,7 +4,8 @@ export default React.createClass({
   propTypes : {
     name : PropTypes.string.isRequired,
     size: PropTypes.number.isRequired,
-    isSelected: PropTypes.bool.isRequired
+    isSelected: PropTypes.bool.isRequired,
+    changeCollectionSelection: PropTypes.func.isRequired
   },
 
   changeSelection () {

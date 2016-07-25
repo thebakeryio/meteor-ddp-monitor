@@ -96,7 +96,7 @@ CollectionAudit.propTypes = {
   updateIsSecure: PropTypes.string,
   removeIsSecure: PropTypes.string,
   name : PropTypes.string.isRequired,
-  resultTraces : PropTypes.func.isRequired,
+  resultTraces : PropTypes.object.isRequired,
   setCollectionSecurity : PropTypes.func.isRequired
 };
 

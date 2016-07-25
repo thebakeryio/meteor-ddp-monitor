@@ -16,7 +16,6 @@ export default React.createClass({
     const noData = this.props.collections.count() === 0 ?
       <li className="no-collections">No collections yet...</li> : null;
     
-
     const items = this.props.collections.entrySeq()
       .sortBy(([k, v]) => k).map( ([k, v]) => {
         return (

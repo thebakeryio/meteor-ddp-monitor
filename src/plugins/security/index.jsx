@@ -118,7 +118,6 @@ App.propTypes = {
   collectionData: PropTypes.object,
   collectionSecurity: PropTypes.object,
   packageList : PropTypes.object,
-  traces: PropTypes.object,
   securityTabsIndex: PropTypes.number,
 }
 
@@ -127,7 +126,6 @@ export default connect((state) => {
     packageList: state.packageList,
     collectionData : state.minimongoCollectionData,
     collectionSecurity: state.collectionSecurity,
-    traces: state.traces,
     securityTabsIndex: state.securityTabsIndex
   }
 })(App)
