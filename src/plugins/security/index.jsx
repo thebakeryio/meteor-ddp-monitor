@@ -118,7 +118,7 @@ App.propTypes = {
   collectionData: PropTypes.func,
   collectionSecurity: PropTypes.object,
   packageList : PropTypes.object,
-  traces: PropTypes.array,
+  traces: PropTypes.object,
   securityTabsIndex: PropTypes.number,
 }
 

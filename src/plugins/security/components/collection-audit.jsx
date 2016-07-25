@@ -21,6 +21,11 @@ class CollectionAudit extends Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // only rerender if new result traces have come in
+    return !nextProps.resultTraces.equals(this.props.resultTraces);
+  }
+
   _auditCollection() {
     const operations = ['insert', 'update', 'remove'];
     
@@ -37,7 +42,7 @@ class CollectionAudit extends Component {
       // check for DDP response
       // TODO: check with exponential backoff
       setTimeout(() => {
-        let res = testCollectionSecurity(this.props.name, operation, this.props.traces);
+        let res = testCollectionSecurity(this.props.name, operation, this.props.resultTraces.toArray());
         this.props.setCollectionSecurity(`/${this.props.name}/${operation}`, res || 'timeout');
         this.setState({'testing': false});
       }, 800);
@@ -91,13 +96,19 @@ CollectionAudit.propTypes = {
   updateIsSecure: PropTypes.string,
   removeIsSecure: PropTypes.string,
   name : PropTypes.string.isRequired,
-  traces : PropTypes.array.isRequired,
+  resultTraces : PropTypes.func.isRequired,
   setCollectionSecurity : PropTypes.func.isRequired
+};
+
+const getResultTraces = (traces) => {
+  return traces.filter((trace) => {
+    return trace.message.msg === 'result';
+  });
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    traces: state.traces,
+    resultTraces: getResultTraces(state.traces),
     insertIsSecure: state.collectionSecurity.get(`/${ownProps.name}/insert`),
     updateIsSecure: state.collectionSecurity.get(`/${ownProps.name}/update`),
     removeIsSecure: state.collectionSecurity.get(`/${ownProps.name}/remove`)

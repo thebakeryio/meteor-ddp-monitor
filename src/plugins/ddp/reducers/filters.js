@@ -23,7 +23,7 @@ const initialState = {
   }
 };
 
-export default function traces(state = initialState, action){
+export default function filters(state = initialState, action){
   switch(action.type){
     case TOGGLE_FILTER:
       return Object.assign({}, state, {
