@@ -25,6 +25,11 @@ const onNewMessage = (error, message) => {
   }
 };
 
+const getItemsForCollection = (collectionData, collection) => {
+  const data = collectionData.toJS();
+  return data.get(collection) || [];
+};
+
 class App extends Component {
 
   componentDidMount() {
@@ -64,7 +69,10 @@ class App extends Component {
       const projector = safeDocumentProjector(query);
       const sorter = safeDocumentSorter(query);
       const error = matcher.error || projector.error || sorter.error;
-      const queryResult = this.props.getItemsForCollection()
+      
+      const queryResult = getItemsForCollection(
+        this.props.minimongoCollections,
+        this.props.minimongoCurrentSelection)
         .filter(matcher.action)
         .map(projector.action)
         .sort(sorter.action);
@@ -87,6 +95,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('rerender minimongo');
     const data = this.props.minimongoCollections;
     const noData = Immutable.is(data, Immutable.fromJS({}));
     const changeSelection = (collectionName) => {
@@ -100,7 +109,7 @@ class App extends Component {
             <div className="minimongo-header">Collections</div>
             <CollectionList 
             changeCollectionSelection={changeSelection} 
-            collections={this.props.getCollections()}
+            collections={this.props.minimongoCollections}
             currentSelection={this.props.minimongoCurrentSelection}
             />
           </div>
@@ -114,30 +123,15 @@ class App extends Component {
 }
 
 App.propTypes = {
-  getCollections : PropTypes.func.isRequired,
-  getItemsForCollection : PropTypes.func.isRequired,
   minimongoCurrentSelection : PropTypes.string,
   minimongoCollectionQuery: PropTypes.object,
-  minimongoCollections: PropTypes.object
+  minimongoCollections: PropTypes.object.isRequired
 }
 
 export default connect((state) => {
   return {
     minimongoCollections: state.minimongoCollectionData,
     minimongoCurrentSelection: state.minimongoCollectionSelection,
-    minimongoCollectionQuery: state.minimongoCollectionQuery,
-    getCollections: () => {
-      return state.minimongoCollectionData.map((value, key) => {
-        return {
-          'name': key,
-          'size': value.count()
-        }
-      }).sort((a, b) =>  a.name < b.name ? -1 : 1);
-    },
-    getItemsForCollection: () => {
-      const collection = state.minimongoCollectionSelection;
-      const data = state.minimongoCollectionData.toJS();
-      return data[collection] || [];
-    },
+    minimongoCollectionQuery: state.minimongoCollectionQuery
   };
 })(App)

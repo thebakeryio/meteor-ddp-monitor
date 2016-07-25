@@ -15,14 +15,17 @@ export default React.createClass({
   render () {
     const noData = this.props.collections.count() === 0 ?
       <li className="no-collections">No collections yet...</li> : null;
-    const items = this.props.collections.valueSeq().map((item) => {
-      return (
-        <CollectionItem 
-          changeCollectionSelection={this.props.changeCollectionSelection}
-          isSelected={this.isSelected(item.name)}
-          key={item.name} name={item.name} size={item.size} 
-        />
-      )
+    
+
+    const items = this.props.collections.entrySeq()
+      .sortBy(([k, v]) => k).map( ([key, value]) => {
+        return (
+          <CollectionItem 
+            changeCollectionSelection={this.props.changeCollectionSelection}
+            isSelected={this.isSelected(key)}
+            key={key} name={key} size={value.size} 
+          />
+        )
     });
 
     return (
