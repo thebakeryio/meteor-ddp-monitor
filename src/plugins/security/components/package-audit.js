@@ -51,7 +51,7 @@ export default React.createClass({
             {this._checkPackageIsRemoved('autopublish')}
             {this._checkPackageIsIncluded('aldeed:simple-schema')}
             {this._checkPackageIsIncluded('audit-argument-checks')}
-            {this._checkPackageIsIncluded('mdg:validated-methods')}
+            {this._checkPackageIsIncluded('mdg:validated-method')}
         </ul>
       </div>
     )

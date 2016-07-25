@@ -39,7 +39,7 @@ class CollectionAudit extends Component {
         let res = testCollectionSecurity(this.props.name, operation, this.props.traces);
         this.props.setCollectionSecurity(`/${this.props.name}/${operation}`, res || 'timeout');
         this.setState({'testing': false});
-      }, 500);
+      }, 800);
     });
   
     Analytics.trackEvent('security', 'collection:audit');

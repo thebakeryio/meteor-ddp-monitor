@@ -14,22 +14,22 @@ import CommonReducers from '../common/reducers';
 let __store = null;
 const plugins = [
   {
-    name: 'DDP Monitor',
+    name: 'DDP',
     reducers: DDPReducers,
     component: <DDPMonitor />,
   },
   {
-    name: 'Blaze Inspector',
+    name: 'Blaze',
     reducers: BlazeReducers,
     component: <BlazeInspector />,
   },
   {
-    name: 'MiniMongo Explorer',
+    name: 'MiniMongo',
     reducers: MiniMongoReducers,
     component: <MiniMongoExplorer />
   },
   {
-    name: 'Security Auditor',
+    name: 'Security',
     reducers: SecurityReducers,
     component: <SecurityAuditor />
   }

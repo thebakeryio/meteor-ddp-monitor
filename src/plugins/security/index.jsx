@@ -99,7 +99,6 @@ class App extends Component {
       },
     ];
 
-
     return (
       <div className="security">
         <SplitPane defaultSize={250} maxSize={400} minSize={100} split="vertical">

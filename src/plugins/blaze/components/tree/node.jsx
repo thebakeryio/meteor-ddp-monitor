@@ -75,7 +75,7 @@ const Node = React.createClass({
           &lt;<span className={`tag-name ${this.selectedNodeClassName()}`}>
             {this.nodeOpeningTagContent()}</span>&gt;
         </div>
-        <div className="tag-wrap" style={this.getStyles(false)} onClick={this.changeSelection}>
+        <div className="tag-wrap-closing" style={this.getStyles(false)} onClick={this.changeSelection}>
           &lt;<span className={`tag-name ${this.selectedNodeClassName()}`}>
             {this.nodeClosingTagContent()}</span>&gt;
         </div>
@@ -153,7 +153,7 @@ const Node = React.createClass({
                   onHover={this.props.onHover} />
               )) : <span>&#8230;</span>
             }
-          <div className="tag-wrap" style={this.getStyles(false)}
+          <div className={this.isExpanded() ? 'tag-wrap' : 'tag-wrap-closing'}  style={this.getStyles(false)}
             onClick={() => !this.isExpanded() && this.changeSelection() }
             onDoubleClick={(e) => !this.isExpanded() && toggleCollapse(e) }>
             &lt;<span className={`tag-name ${!this.isExpanded() ? this.selectedNodeClassName() : ''}`}>

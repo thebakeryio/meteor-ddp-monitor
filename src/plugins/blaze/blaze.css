@@ -34,6 +34,11 @@
   padding: 1px 0 1px 14px;
 }
 
+.blaze-inspector > section .tag-wrap-closing {
+  color: rgb(168, 148, 166);
+  padding: 1px 0 1px 1px;
+}
+
 .blaze-inspector > section .tag-name {
   color: rgb(136, 18, 128);
 }
