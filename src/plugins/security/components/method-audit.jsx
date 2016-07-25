@@ -21,6 +21,11 @@ class MethodAudit extends Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // only rerender if new result traces have come in
+    return !nextProps.resultTraces.equals(this.props.resultTraces);
+  }
+
   _auditMethod() {
     const params = ['string', 'number', 'object'];
     
@@ -40,6 +45,7 @@ class MethodAudit extends Component {
   }
 
   render () {
+    console.log('render method audit')
     const buttonLabel = this.state.testing ? 'Testing...' : 'Audit method';
     const paramsType = this.props.params.map((m) => {
       return <span>{m} / </span>
@@ -62,14 +68,20 @@ class MethodAudit extends Component {
 
 MethodAudit.propTypes = {
   name : PropTypes.string.isRequired,
-  traces : PropTypes.array.isRequired,
+  resultTraces : PropTypes.object.isRequired,
   params : PropTypes.array,
   setMethodSecurity : PropTypes.func.isRequired
 };
 
+const getResultTraces = (traces) => {
+  return traces.filter((trace) => {
+    return trace.message.msg === 'result';
+  });
+};
+
 function mapStateToProps(state, ownProps) {
   return {
-    traces: state.traces,
+    resultTraces: getResultTraces(state.traces),
   };
 }
 

@@ -12,7 +12,6 @@ import {
 import Analytics from './analytics';
 
 const trackRoute = (index) => {
-  console.log('tracking page view')
   if (index === DDP_TAB_INDEX){
     Analytics.trackPageView('meteor ddp monitor');
   }

@@ -120,10 +120,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-  collectionData: PropTypes.func,
-  collectionSecurity: PropTypes.object,
+  collectionData: PropTypes.object,
   packageList : PropTypes.object,
-  traces: PropTypes.array,
   securityTabsIndex: PropTypes.number,
   methodsSecurity: PropTypes.object
 }
@@ -131,16 +129,7 @@ App.propTypes = {
 export default connect((state) => {
   return {
     packageList: state.packageList,
-    collectionData : () => {
-      return state.minimongoCollectionData.map((value, key) => {
-        return {
-          'name': key,
-          'size': value.count()
-        }
-      }).sort((a, b) =>  a.name < b.name ? -1 : 1);
-    },
-    collectionSecurity: state.collectionSecurity,
-    traces: state.traces,
+    collectionData : state.minimongoCollectionData,
     securityTabsIndex: state.securityTabsIndex,
     methodsSecurity: state.methodsSecurity
   }

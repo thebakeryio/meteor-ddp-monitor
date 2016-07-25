@@ -4,17 +4,13 @@ import CollectionAudit from './collection-audit';
 
 export default React.createClass({
   propTypes : {
-    collectionData: PropTypes.func.isRequired
+    collectionData: PropTypes.object.isRequired
   },
 
   render () {
 
-    let collections = this.props.collectionData().keySeq().map((c) => {
-      return (
-      <CollectionAudit
-        key={c} 
-        name={c} 
-      />);
+    let collections = this.props.collectionData.entrySeq().sort(([k,v]) => k).map(([k, v]) => {
+      return (<CollectionAudit key={k} name={k} />);
     });
 
     return (

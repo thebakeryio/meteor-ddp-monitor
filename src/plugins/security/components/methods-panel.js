@@ -9,10 +9,8 @@ export default React.createClass({
 
   render () {
 
-    // console.log(this.props.methodsSecurity.toJS());
-
     let methods = this.props.methodsSecurity.entrySeq().map( ([k, v]) => {
-      return <MethodAudit name={k} params={v} />;
+      return <MethodAudit key={k} name={k} params={v} />;
     });
 
     return (
