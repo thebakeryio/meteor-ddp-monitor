@@ -3,14 +3,10 @@ import _ from 'underscore';
 module.exports = {
 
   buildDDPMessage(collection, operation){
-
-    let params;
-
     // use empty object for inserts to avoid inserting
+    let params = [{}];
     // but _id must be defined for updates and removals  
-    if(operation === 'insert'){
-      params = [{}]; 
-    } else {
+    if(operation !== 'insert'){
       params = [{
         '_id' : 'an_invalid_id'
       }];
@@ -25,12 +21,20 @@ module.exports = {
     return ddpMessage;
   },
 
-  buildDDPMethodTester(method, params){
+  buildDDPMethodTester(method, paramType){
+    let params = ['String'];
+    if(paramType === 'number'){
+      params = [3.14159];
+    }
+    if(paramType === 'object'){
+      params = [{}];      
+    }
+
     const ddpMessage = {
       msg: 'method',
       method: method,
       params: params,
-      id: '/audit/method'
+      id: `/audit/${method}/${paramType}`
     };
     return ddpMessage;
   },

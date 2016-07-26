@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import _ from 'underscore';
 import MethodAudit from './method-audit';
 
 export default React.createClass({
@@ -20,7 +19,7 @@ export default React.createClass({
           <p>Check your method arguments.</p>
           <p>See recommendations: <a href="https://guide.meteor.com/security.html#allow-deny" target="_blank">https://guide.meteor.com/security.html#allow-deny</a></p>
         </div>
-        <ul className="collection-status">
+        <ul className="methods-status">
           {methods}
         </ul>
       </div>

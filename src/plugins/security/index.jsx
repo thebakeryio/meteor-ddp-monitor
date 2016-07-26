@@ -83,6 +83,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('render security');
     const { dispatch } = this.props;
     const Tabs = [
       {
@@ -131,6 +132,6 @@ export default connect((state) => {
     packageList: state.packageList,
     collectionData : state.minimongoCollectionData,
     securityTabsIndex: state.securityTabsIndex,
-    methodsSecurity: state.methodsSecurity
+    methodsSecurity: state.methodsSecurity,
   }
 })(App)

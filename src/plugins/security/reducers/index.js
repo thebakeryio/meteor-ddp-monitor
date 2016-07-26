@@ -41,10 +41,10 @@ export default {
     switch(action.type){
       case NEW_TRACE:
         if(action.trace && action.trace.message && action.trace.message.msg === 'method'){
-          const paramsType = action.trace.message.params.map((p) => {
-            return typeof(p);
-          });
-          return state.set(action.trace.message.method, paramsType);
+          // const paramsType = action.trace.message.params.map((p) => {
+          //   return typeof(p);
+          // });
+          return state.set(action.trace.message.method, action.trace.message.params);
         } else {
           return state;
         }

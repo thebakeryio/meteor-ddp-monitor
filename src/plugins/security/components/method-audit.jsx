@@ -10,6 +10,8 @@ import {
 } from '../actions';
 import Analytics from '../../../common/analytics';
 import Bridge from '../../../common/bridge';
+import JSONTree from 'react-json-tree';
+import MethodStatus from './method-audit';
 
 class MethodAudit extends Component {
 
@@ -26,39 +28,73 @@ class MethodAudit extends Component {
     return !nextProps.resultTraces.equals(this.props.resultTraces);
   }
 
-  _auditMethod() {
-    const params = ['string', 'number', 'object'];
-    
-    params.forEach((operation) => {
-
-      // send a DDP probe
-      Bridge.sendMessageToThePage({
-        source: 'security-auditor',
-        event: 'test-method-params',
-        ddpMessage: buildDDPMethodTester(this.props.name, params),
-      });
-      this.setState({'testing': true});
-      
+  _auditMethod(argType, argument) {    
+    // send a DDP probe
+    Bridge.sendMessageToThePage({
+      source: 'security-auditor',
+      event: 'test-method-params',
+      ddpMessage: buildDDPMethodTester(this.props.name, argType, argument),
     });
+    this.setState({'testing': true});
   
     Analytics.trackEvent('security', 'method:audit');
   }
 
+  _showResult(argType) {
+    const response = this.props.resultTraces.filter((trace) => {
+      return trace.message.id === `/audit/${this.props.name}/${argType}`;
+    }).first();
+    if (!response) { return; }
+    if(response.message && response.message.error) {
+      if(response.message.error.reason === 'Match failed'){
+        return <div className="valid">&#8226; Blocked by check</div>;
+      } else {
+        return <div className="error">&#8226; Method returned an error</div>;
+      }
+    } else {
+      return <div className="warning">&#8226; Method called</div>;
+    }
+  }
+
   render () {
-    console.log('render method audit')
     const buttonLabel = this.state.testing ? 'Testing...' : 'Audit method';
-    const paramsType = this.props.params.map((m) => {
-      return <span>{m} / </span>
+    const theme = {
+      tree: {
+        backgroundColor: 'transparent',
+        fontSize: '1em'
+      },
+      arrow: ({ style }, type, expanded) => ({
+        style: Object.assign(style, {
+            marginTop: 2
+        })
+      }),
+    };
+
+    const valueRenderer = (raw) => {
+      const type = typeof raw;
+      return <span>{raw} <span className="arg-type">// {type}</span></span>
+    };
+
+    const checkMethod = ['string', 'number', 'object'].map((argType) => {
+      return (<div className="check-method">
+          <button onClick={() => this._auditMethod(argType)}>Call with <em>{argType}</em></button>
+          <div>{this._showResult(argType)}</div>
+      </div>);
     });
 
     return (
       <li key={this.props.name}>
-          <div className=""></div>
-          <div className="desc">
-            <strong>{this.props.name}</strong>
-            <p>{paramsType}</p>
-            <div> 
-              <button onClick={this._auditMethod}>{buttonLabel}</button>
+          <div><strong>{this.props.name}</strong></div>
+          <div className="method-content">
+            <div className="args">Arguments: </div>
+            <JSONTree 
+              data={this.props.params} 
+              hideRoot
+              theme={theme} 
+              valueRenderer={valueRenderer}
+            />
+            <div className="method-audit">
+              {checkMethod}
             </div>
           </div>
       </li>
