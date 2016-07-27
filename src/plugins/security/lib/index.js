@@ -37,41 +37,5 @@ module.exports = {
       id: `/audit/${method}/${paramType}`
     };
     return ddpMessage;
-  },
-
-  testCollectionSecurity(collection, operation, traces){
-    const ddpResponse = _.first(_.filter(traces, function(obj) {
-      return obj && obj.message && (obj.message.id === `/audit/${collection}/${operation}`)
-        && (obj.message.msg === 'result');
-    }));
-
-    if(!ddpResponse) {
-      return;
-    }
-    
-    const result = ddpResponse.result !== undefined;
-    const responseCode = ddpResponse.message && ddpResponse.message.error &&
-      ddpResponse.message.error.error;
-
-    if (!result && responseCode === 403) {
-      return 'secure';
-    } else {
-      return 'insecure';
-    }
-  },
-
-  exponentialBackoff(toTry, max, delay, callback) {
-    const res = toTry();
-    if (res) {
-      callback(res);
-    } else {
-      if (max > 0) {
-        setTimeout(() => {
-          exponentialBackoff(toTry, max-1, delay * 2, callback);
-        }, delay);
-      } else {
-        console.log('timeout');   
-      }
-    }
   }
 };

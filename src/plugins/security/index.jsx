@@ -83,7 +83,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('render security');
+    console.log('render security plugin');
     const { dispatch } = this.props;
     const Tabs = [
       {
@@ -92,7 +92,7 @@ class App extends Component {
       },
       {
         name: 'Collections',
-        component: <CollectionPanel collectionData={this.props.collectionData} />
+        component: <CollectionPanel collectionData={this.props.collectionData} traces={this.props.resultTraces} />
       },
       {
         name: 'Methods',
@@ -120,6 +120,12 @@ class App extends Component {
   }
 }
 
+const getResultTraces = (traces) => {
+  return traces.filter((trace) => {
+    return trace.message.msg === 'result';
+  });
+};
+
 App.propTypes = {
   collectionData: PropTypes.object,
   packageList : PropTypes.object,
@@ -133,5 +139,6 @@ export default connect((state) => {
     collectionData : state.minimongoCollectionData,
     securityTabsIndex: state.securityTabsIndex,
     methodsSecurity: state.methodsSecurity,
+    resultTraces: getResultTraces(state.traces),
   }
 })(App)

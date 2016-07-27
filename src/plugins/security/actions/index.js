@@ -12,14 +12,6 @@ export function setPackageList(data) {
   }
 }
 
-export function setCollectionSecurity(method, isSecure) {
-  return {
-    type: SET_COLLECTION_SECURITY,
-    method: method,
-    isSecure: isSecure 
-  }
-}
-
 export function clearCollectionSecurity() {
   return {
     type: CLEAR_COLLECTION_SECURITY

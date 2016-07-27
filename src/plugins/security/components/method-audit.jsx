@@ -41,9 +41,9 @@ class MethodAudit extends Component {
   }
 
   _showResult(argType) {
-    const response = this.props.resultTraces.filter((trace) => {
+    const response = this.props.resultTraces.find((trace) => {
       return trace.message.id === `/audit/${this.props.name}/${argType}`;
-    }).first();
+    });
     if (!response) { return; }
     if(response.message && response.message.error) {
       if(response.message.error.reason === 'Match failed'){
