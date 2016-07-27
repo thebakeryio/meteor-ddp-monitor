@@ -30,7 +30,8 @@ export default {
   methodsSecurity (state = Immutable.Map(), action) {
     switch(action.type){
       case NEW_TRACE:
-        if(action.trace && action.trace.message && action.trace.message.msg === 'method'){
+        if(action.trace && action.trace.message && action.trace.message.msg === 'method' &&
+          !action.trace.message.id.startsWith('/audit')){
           return state.set(action.trace.message.method, action.trace.message.params);
         } else {
           return state;

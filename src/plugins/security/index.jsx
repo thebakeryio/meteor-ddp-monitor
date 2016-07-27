@@ -83,7 +83,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('render security plugin');
     const { dispatch } = this.props;
     const Tabs = [
       {
@@ -96,7 +95,7 @@ class App extends Component {
       },
       {
         name: 'Methods',
-        component: <MethodsPanel methodsSecurity={this.props.methodsSecurity} />
+        component: <MethodsPanel methodsSecurity={this.props.methodsSecurity} traces={this.props.resultTraces} />
       },
     ];
 
@@ -130,7 +129,8 @@ App.propTypes = {
   collectionData: PropTypes.object,
   packageList : PropTypes.object,
   securityTabsIndex: PropTypes.number,
-  methodsSecurity: PropTypes.object
+  methodsSecurity: PropTypes.object,
+  resultTraces: PropTypes.object.isRequired
 }
 
 export default connect((state) => {

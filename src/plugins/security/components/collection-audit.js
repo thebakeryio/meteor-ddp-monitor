@@ -3,9 +3,22 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import {
   buildDDPMessage,
-  } from '../lib';
+} from '../lib';
 import Analytics from '../../../common/analytics';
 import Bridge from '../../../common/bridge';
+
+const getResultForOperation = (traces, collection, operation) => {
+  const id = `/audit/${collection}/${operation}`;
+  const res = traces.find((trace) => {
+    return trace.message.id === id;
+  });
+  if(!res){
+    return false;
+  } else {
+    return res.message && res.message.error && 
+      res.message.error.error === 403 ? 'secure' : 'insecure';
+  }
+};
 
 export default React.createClass({
   propTypes : {
@@ -52,7 +65,7 @@ export default React.createClass({
 
     return (
       <li>
-          <div className={statusClass}></div>
+          <div className={statusClass}>&#11044;</div>
           <div className="desc">
             <strong>{this.props.name}</strong>
             <ul className={resultClass}>
@@ -68,18 +81,5 @@ export default React.createClass({
     )
   }
 });
-
-const getResultForOperation = (traces, collection, operation) => {
-  const id = `/audit/${collection}/${operation}`;
-  const res = traces.find((trace) => {
-    return trace.message.id === id;
-  });
-  if(!res){
-    return false;
-  } else {
-    return res.message && res.message.error && 
-      res.message.error.error === 403 ? 'secure' : 'insecure';
-  }
-};
 
 

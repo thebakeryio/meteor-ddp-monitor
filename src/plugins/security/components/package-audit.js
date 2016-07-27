@@ -10,13 +10,13 @@ export default React.createClass({
     if(this.props.packages.includes(packageName)){
       return (
         <li className="warning">
-          <div className="status warning"></div>
+          <div className="status warning">&#11044;</div>
           <p className="desc">You should consider removing the <strong>{packageName}</strong> package.</p>
         </li>);
     } else {
       return (
         <li className="valid">
-          <div className="status valid"></div>
+          <div className="status valid">&#11044;</div>
           <p className="desc"><strong>{packageName}</strong> package was removed.</p>
         </li>);
     }
@@ -26,13 +26,13 @@ export default React.createClass({
     if(!this.props.packages.includes(packageName)){
       return (
         <li className="warning">
-          <div className="status warning"></div>
+          <div className="status warning">&#11044;</div>
           <p className="desc">Consider using the <strong>{packageName}</strong> package.</p>
         </li>);
     } else {
       return (
         <li className="valid">
-          <div className="status valid"></div>
+          <div className="status valid">&#11044;</div>
           <p className="desc"><strong>{packageName}</strong> package is included.</p>
         </li>
       );

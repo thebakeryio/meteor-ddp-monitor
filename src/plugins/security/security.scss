@@ -71,17 +71,6 @@
       }
     }
 
-    .status {
-      width: 8px;
-      height: 8px;
-      margin-top: 5px;
-      margin-left: 10px;
-      margin-right: 18px;
-      border-radius: 18px;
-      flex: none;
-      background-color: #ccc;
-    }
-
     .desc {
       flex: auto;
       margin: 0;
@@ -122,11 +111,11 @@
   .operation-results {
     max-height: 0;
     overflow: hidden;
-    transition: all ease-in 300ms;
+    transition: all ease-in 400ms;
     padding: 0;
 
     &.show {
-      max-height: 1000px;
+      max-height: 200px;
 
     }
 
@@ -150,35 +139,41 @@
   }
 
   .valid, .secure {
-    color: rgb(42, 194, 57);
+    color: rgb(42, 194, 57) !important;
   }
 
   .warning, .insecure {
-    color: red;
+    color: red !important;
   }
 
-  .timeout, .unknown {
-    color: rgb(253, 177, 48);
+  .timeout, .caution {
+    color: rgb(253, 177, 48) !important;
   }
 
-  .status {
-    &.secure, &.valid {
-      background-color: rgb(42, 194, 57) !important;
-    }
-
-    &.insecure, &.warning {
-      background-color: red;
-    }
-
-    &.timeout {
-      background-color: rgb(253, 177, 48);
-    }
+  .gray {
+    color: gray;
   }
 
   .arg-type {
     font-style: italic;
     color: gray;
   }
+
+  .status {
+    margin-left: 10px;
+    margin-right: 15px;
+    font-size: 8px;
+    line-height: 14px;
+    color: #ccc;
+  }
+
+  .check-status {
+    font-size: 8px;
+    line-height: 14px;
+    vertical-align: top;
+    margin-right: 10px;
+  }
+
 
   .methods-status {
 
@@ -202,7 +197,7 @@
     
     button {
       display: block;
-      width: 120px;
+      width: 130px;
       margin-bottom: 10px;
     }
   }
