@@ -3,13 +3,9 @@ const __getPackageList = (callback) => {
   callback && callback('security-auditor', collections);
 };
 
-const __testCollectionSecurity = (ddpMessage) => {
+const __testDDPMethod = (ddpMessage) => {
   // add empty methodInvoker to avoid error message
   Meteor.connection._methodInvokers[ddpMessage.id] = { dataVisible : () => {} };
-  Meteor.connection._stream.send(JSON.stringify(ddpMessage));
-};
-
-const __testMethodParams = (ddpMessage) => {
   Meteor.connection._stream.send(JSON.stringify(ddpMessage));
 };
 
@@ -28,10 +24,10 @@ module.exports = {
       __talkToExtension && __getPackageList(__talkToExtension);
     }
     if(message.event === 'test-collection-security') {
-      __talkToExtension && __testCollectionSecurity(message.ddpMessage);
+      __talkToExtension && __testDDPMethod(message.ddpMessage);
     }
     if(message.event === 'test-method-params') {
-      __talkToExtension && __testMethodParams(message.ddpMessage);
+      __talkToExtension && __testDDPMethod(message.ddpMessage);
     }
   }
 };

@@ -6,7 +6,7 @@ import {
   setPackageList,
   setCollectionSecurity,
   setSecurityTab,
-  clearCollectionSecurity
+  clearMethodSecurity
 } from './actions';
 import SplitPane from 'react-split-pane';
 import CollectionPanel from './components/collections-panel';
@@ -25,7 +25,7 @@ const onNewMessage = (error, message) => {
 };
 
 const onPageReload = () => {
-  dispatch(clearCollectionSecurity());
+  dispatch(clearMethodSecurity());
   Bridge.sendMessageToThePage({
     source: 'security-auditor',
     event: 'get-package-list'

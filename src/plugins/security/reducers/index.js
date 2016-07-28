@@ -1,8 +1,7 @@
 import { 
   SET_PACKAGE_LIST,
-  SET_COLLECTION_SECURITY,
   SET_SECURITY_TAB,
-  CLEAR_COLLECTION_SECURITY
+  CLEAR_METHOD_SECURITY
 } from '../constants'
 import {
   NEW_TRACE
@@ -36,6 +35,8 @@ export default {
         } else {
           return state;
         }
+      case CLEAR_METHOD_SECURITY:
+        return Immutable.Map();
       default:
         return state;
     }
