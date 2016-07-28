@@ -7,8 +7,8 @@ export default function traces(state = Immutable.List(), action){
     case NEW_TRACE:
        return state.push(action.trace);
     case CLEAR_LOGS:
-      return []
+      return Immutable.List();
     default:
-      return state
+      return state;
   }
 }
