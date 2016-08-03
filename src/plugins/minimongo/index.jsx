@@ -25,6 +25,14 @@ const onNewMessage = (error, message) => {
   }
 };
 
+const onPageReload = () => {
+  dispatch(setCollectionData());
+  Bridge.sendMessageToThePage({
+    source: 'security-auditor',
+    event: 'get-minimongo-collections'
+  });
+};
+
 class App extends Component {
 
   componentDidMount() {
@@ -32,7 +40,7 @@ class App extends Component {
 
     if(chrome && chrome.devtools) {
       Bridge.registerMessageCallback(onNewMessage);
-      Bridge.registerPageReloadCallback(onNewMessage);
+      Bridge.registerPageReloadCallback(onPageReload);
       Bridge.sendMessageToThePage({
         source: 'minimongo-explorer',
         event: 'get-minimongo-collections'

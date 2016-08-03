@@ -4,16 +4,16 @@ import {
   CLEAR_METHOD_SECURITY
 } from '../constants'
 import {
-  NEW_TRACE
+  NEW_TRACE, CLEAR_LOGS
 } from '../../ddp/constants/action-types';
 import Immutable from 'immutable'
 
 
 export default {
-  packageList (state = Immutable.fromJS({}), action) {
+  packageList (state = Immutable.List(), action) {
     switch(action.type){
       case SET_PACKAGE_LIST:
-        return Immutable.fromJS(action.data);
+        return Immutable.List(action.data);
       default:
         return state;
     }
@@ -29,7 +29,7 @@ export default {
   methodsSecurity (state = Immutable.Map(), action) {
     switch(action.type){
       case NEW_TRACE:
-        if(action.trace && action.trace.message && action.trace.message.msg === 'method' &&
+        if(action.trace.message && action.trace.message.msg === 'method' &&
           !action.trace.message.id.startsWith('/audit')){
           return state.set(action.trace.message.method, action.trace.message.params);
         } else {
@@ -37,6 +37,20 @@ export default {
         }
       case CLEAR_METHOD_SECURITY:
         return Immutable.Map();
+      default:
+        return state;
+    }
+  },
+  resultTraces (state = Immutable.List(), action) {
+    switch(action.type){
+      case NEW_TRACE:
+        if(action.trace.message && action.trace.message.msg === 'result'){
+         return state.push(action.trace);
+        } else {
+          return state;
+        }
+      case CLEAR_LOGS:
+        return Immutable.List();
       default:
         return state;
     }

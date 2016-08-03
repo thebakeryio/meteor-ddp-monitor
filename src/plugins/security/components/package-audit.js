@@ -39,6 +39,24 @@ export default React.createClass({
     }
   },
 
+  _listPackages () {
+    if(this.props.packages.size){    
+      return (<ul className="package-status">
+        {this._checkPackageIsRemoved('insecure')}
+        {this._checkPackageIsRemoved('autopublish')}
+        {this._checkPackageIsIncluded('aldeed:simple-schema')}
+        {this._checkPackageIsIncluded('audit-argument-checks')}
+        {this._checkPackageIsIncluded('mdg:validated-method')}
+      </ul>);
+    } else {
+      return (
+        <ul className="package-status">
+          <li><p className="gray">No packages detected.</p></li>
+        </ul>
+      );
+    }
+  },
+
   render () {
     return (
       <div>
@@ -46,13 +64,7 @@ export default React.createClass({
           <h3>Packages:</h3>
           <p>Some package recommendations based on: <a href="https://guide.meteor.com/security.html#checklist" target="_blank">https://guide.meteor.com/security.html#method-rules.</a></p>
         </div>
-        <ul className="package-status">
-            {this._checkPackageIsRemoved('insecure')}
-            {this._checkPackageIsRemoved('autopublish')}
-            {this._checkPackageIsIncluded('aldeed:simple-schema')}
-            {this._checkPackageIsIncluded('audit-argument-checks')}
-            {this._checkPackageIsIncluded('mdg:validated-method')}
-        </ul>
+        {this._listPackages()}
       </div>
     )
   }

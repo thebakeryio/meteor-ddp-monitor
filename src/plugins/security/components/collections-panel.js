@@ -24,6 +24,14 @@ export default React.createClass({
       return (<CollectionAudit key={k} name={k} traces={this._filterTraces(this.props.traces, k)} />);
     });
 
+    let noCollections = () => {
+      if(!this.props.collectionData.size){
+        return (<li>
+          <p className="gray">No collections detected.</p>
+        </li>);
+      }
+    };
+
     return (
       <div>
         <div className="panel-header">
@@ -33,6 +41,7 @@ export default React.createClass({
         </div>
         <ul className="collection-status">
           {collections}
+          {noCollections()}
         </ul>
       </div>
     )

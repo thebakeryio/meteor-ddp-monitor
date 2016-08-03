@@ -26,6 +26,7 @@ const onNewMessage = (error, message) => {
 
 const onPageReload = () => {
   dispatch(clearMethodSecurity());
+  dispatch(setPackageList());  
   Bridge.sendMessageToThePage({
     source: 'security-auditor',
     event: 'get-package-list'
@@ -119,12 +120,6 @@ class App extends Component {
   }
 }
 
-const getResultTraces = (traces) => {
-  return traces.filter((trace) => {
-    return trace.message.msg === 'result';
-  });
-};
-
 App.propTypes = {
   collectionData: PropTypes.object,
   packageList : PropTypes.object,
@@ -139,6 +134,6 @@ export default connect((state) => {
     collectionData : state.minimongoCollectionData,
     securityTabsIndex: state.securityTabsIndex,
     methodsSecurity: state.methodsSecurity,
-    resultTraces: getResultTraces(state.traces),
+    resultTraces: state.resultTraces,
   }
 })(App)

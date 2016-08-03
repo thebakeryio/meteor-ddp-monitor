@@ -20,15 +20,15 @@ export default React.createClass({
       }),
     };
     
-    let getItemString = (type, data, itemType, itemString) => {
+    const getItemString = (type, data, itemType, itemString) => {
       let id = (typeof data._id) === 'string' ? data._id : 
         data._id && data._id._str;
       return (<span> {id} {itemType} {itemString} </span>);
     };
 
     // expand the first node if its an only child
-    let shouldExpandNode = (keyPath, data, level) => {
-      return level === 1 && this.props.data.length === 1;
+    const shouldExpandNode = (keyPath, data, level) => {
+      return (level === 1) && (this.props.data.length === 1);
     };
 
     if(this.props.data.length === 0){
