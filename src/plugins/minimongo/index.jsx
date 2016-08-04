@@ -72,11 +72,8 @@ class App extends Component {
       const projector = safeDocumentProjector(query);
       const sorter = safeDocumentSorter(query);
       const error = matcher.error || projector.error || sorter.error;
-      
-      const queryResult = this.props.minimongoCollections.get(this.props.minimongoCurrentSelection)
-        .filter(matcher.action)
-        .map(projector.action)
-        .sort(sorter.action);
+      const collection = this.props.minimongoCollections.get(this.props.minimongoCurrentSelection) || [];
+      const queryResult = collection.filter(matcher.action).map(projector.action).sort(sorter.action);
 
       return (
         <div className="collection-panel">
