@@ -23,7 +23,7 @@ let __talkToExtension = null;
 module.exports = {
   setup : (talkToExtension) => {
     __talkToExtension = talkToExtension;
-    Tracker.autorun(function(){
+    Package.tracker.Tracker.autorun(function(){
       const collections = Meteor.connection._mongo_livedata_collections;
       for(let i in collections) {
         collections[i].find();
